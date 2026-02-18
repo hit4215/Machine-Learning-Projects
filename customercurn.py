@@ -1,82 +1,82 @@
-import pandas as pd
-import numpy as np
-#import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.preprocessing import StandardScaler,LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-import streamlit as st
+# import pandas as pd
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import seaborn as sns
+# from sklearn.preprocessing import StandardScaler,LabelEncoder
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LogisticRegression
+# from sklearn.metrics import accuracy_score
+# import streamlit as st
 
-df = pd.read_csv('curn.csv')
-print(df.shape)
-print(df.describe())
-#print(df.info())
-#print(df.isnull().sum())
-df.drop('customerID',axis=1,inplace=True)
-print(df.info())
-print(df['gender'].value_counts())
-print(df['Partner'].value_counts())
-print(df['Dependents'].value_counts())
-print(df['PhoneService'].value_counts())
-print(df['MultipleLines'].value_counts())
-print(df['InternetService'].value_counts())
-print(df['OnlineSecurity'].value_counts())
-print(df['OnlineBackup'].value_counts())
-print(df['DeviceProtection'].value_counts())
-print(df['TechSupport'].value_counts())
-print(df['StreamingTV'].value_counts())
-print(df['StreamingMovies'].value_counts())
-print(df['Contract'].value_counts())
-print(df['PaperlessBilling'].value_counts())    
-print(df['PaymentMethod'].value_counts())
-print(df['Churn'].value_counts())
+# df = pd.read_csv('curn.csv')
+# print(df.shape)
+# print(df.describe())
+# #print(df.info())
+# #print(df.isnull().sum())
+# df.drop('customerID',axis=1,inplace=True)
+# print(df.info())
+# print(df['gender'].value_counts())
+# print(df['Partner'].value_counts())
+# print(df['Dependents'].value_counts())
+# print(df['PhoneService'].value_counts())
+# print(df['MultipleLines'].value_counts())
+# print(df['InternetService'].value_counts())
+# print(df['OnlineSecurity'].value_counts())
+# print(df['OnlineBackup'].value_counts())
+# print(df['DeviceProtection'].value_counts())
+# print(df['TechSupport'].value_counts())
+# print(df['StreamingTV'].value_counts())
+# print(df['StreamingMovies'].value_counts())
+# print(df['Contract'].value_counts())
+# print(df['PaperlessBilling'].value_counts())    
+# print(df['PaymentMethod'].value_counts())
+# print(df['Churn'].value_counts())
 
-encoder = LabelEncoder()
-df['gender'] = encoder.fit_transform(df['gender'])
-df['Partner'] = encoder.fit_transform(df['Partner'])
-df['Dependents'] = encoder.fit_transform(df['Dependents'])
-df['PhoneService'] = encoder.fit_transform(df['PhoneService'])
-df['MultipleLines'] = encoder.fit_transform(df['MultipleLines'])
-df['InternetService'] = encoder.fit_transform(df['InternetService'])
-df['OnlineSecurity'] = encoder.fit_transform(df['OnlineSecurity'])
-df['OnlineBackup'] = encoder.fit_transform(df['OnlineBackup'])
-df['DeviceProtection'] = encoder.fit_transform(df['DeviceProtection'])
-df['TechSupport'] = encoder.fit_transform(df['TechSupport'])
-df['StreamingTV'] = encoder.fit_transform(df['StreamingTV'])
-df['StreamingMovies'] = encoder.fit_transform(df['StreamingMovies'])
-df['Contract'] = encoder.fit_transform(df['Contract'])
-df['PaperlessBilling'] = encoder.fit_transform(df['PaperlessBilling'])
-df['PaymentMethod'] = encoder.fit_transform(df['PaymentMethod'])
-df['Churn'] = encoder.fit_transform(df['Churn'])
+# encoder = LabelEncoder()
+# df['gender'] = encoder.fit_transform(df['gender'])
+# df['Partner'] = encoder.fit_transform(df['Partner'])
+# df['Dependents'] = encoder.fit_transform(df['Dependents'])
+# df['PhoneService'] = encoder.fit_transform(df['PhoneService'])
+# df['MultipleLines'] = encoder.fit_transform(df['MultipleLines'])
+# df['InternetService'] = encoder.fit_transform(df['InternetService'])
+# df['OnlineSecurity'] = encoder.fit_transform(df['OnlineSecurity'])
+# df['OnlineBackup'] = encoder.fit_transform(df['OnlineBackup'])
+# df['DeviceProtection'] = encoder.fit_transform(df['DeviceProtection'])
+# df['TechSupport'] = encoder.fit_transform(df['TechSupport'])
+# df['StreamingTV'] = encoder.fit_transform(df['StreamingTV'])
+# df['StreamingMovies'] = encoder.fit_transform(df['StreamingMovies'])
+# df['Contract'] = encoder.fit_transform(df['Contract'])
+# df['PaperlessBilling'] = encoder.fit_transform(df['PaperlessBilling'])
+# df['PaymentMethod'] = encoder.fit_transform(df['PaymentMethod'])
+# df['Churn'] = encoder.fit_transform(df['Churn'])
 
-df['TotalCharges'] = df['TotalCharges'].replace(' ',np.nan)
-df['TotalCharges'] = pd.to_numeric(df['TotalCharges'],errors='coerce')
-df['TotalCharges'] = df['TotalCharges'].fillna(df['TotalCharges'].mean())
-print(df.isnull().sum())
-print(df.info())
-df.drop('gender',axis=1,inplace=True)
-# sns.heatmap(df.corr(),annot=True)
-# plt.show()
+# df['TotalCharges'] = df['TotalCharges'].replace(' ',np.nan)
+# df['TotalCharges'] = pd.to_numeric(df['TotalCharges'],errors='coerce')
+# df['TotalCharges'] = df['TotalCharges'].fillna(df['TotalCharges'].mean())
+# print(df.isnull().sum())
+# print(df.info())
+# df.drop('gender',axis=1,inplace=True)
+# # sns.heatmap(df.corr(),annot=True)
+# # plt.show()
 
-x = df.drop('Churn',axis=1)
-y = df['Churn']
+# x = df.drop('Churn',axis=1)
+# y = df['Churn']
 
-scale = StandardScaler()
-x = scale.fit_transform(x)
+# scale = StandardScaler()
+# x = scale.fit_transform(x)
 
-x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=2)
+# x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=2)
 
-from sklearn.svm import SVC
+# from sklearn.svm import SVC
 
-model2 = SVC(kernel='rbf')
-model2.fit(x_train,y_train)
+# model2 = SVC(kernel='rbf')
+# model2.fit(x_train,y_train)
 
-x_train_acc2 = model2.predict(x_train)
-print(accuracy_score(y_train,x_train_acc2)*100)
+# x_train_acc2 = model2.predict(x_train)
+# print(accuracy_score(y_train,x_train_acc2)*100)
 
-y_pred2 = model2.predict(x_test)
-print(accuracy_score(y_test,y_pred2)*100)
+# y_pred2 = model2.predict(x_test)
+# print(accuracy_score(y_test,y_pred2)*100)
 
 
 #add front end
@@ -171,5 +171,6 @@ st.divider()
 st.caption("Built with ❤️ using Streamlit + Scikit-Learn")
 
 # python -m streamlit run customercurn.py
+
 
 
